@@ -136,6 +136,11 @@ in
           '';
         };
 
+        fork-observer = {
+          networkName = "signet";
+          minForkHeight = 290000;
+        };
+
         extraConfig = { };
         extraModules = [ ];
       };
