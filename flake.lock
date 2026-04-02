@@ -32,15 +32,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1774950788,
-        "narHash": "sha256-obrBonNYg6/Tl2fcGmrMmucX4I8w3VmdVQsnEKISDRA=",
+        "lastModified": 1775141897,
+        "narHash": "sha256-XAUttd8GG54opnO/IYE7LQSSRG+dnFZBtWo/eQwmeuo=",
         "owner": "0xb10c",
         "repo": "nix",
-        "rev": "93004a068aac077df7992765db64190230436150",
+        "rev": "3b5e715cf811c8ecbb3d315f1e5d5b473f8f0dd2",
         "type": "github"
       },
       "original": {
         "owner": "0xb10c",
+        "ref": "2026-04-signet-bip54",
         "repo": "nix",
         "type": "github"
       }
@@ -135,15 +136,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1775134285,
-        "narHash": "sha256-DK//h11uk04x6PGPaF2FpP8dpTZFuhUF+vmkAtdkuGQ=",
+        "lastModified": 1775142117,
+        "narHash": "sha256-LDkuUMYVTIFXCkArTWxBtg5nRg59jfOV9NDwHNwSPQM=",
         "owner": "peer-observer",
         "repo": "infra-library",
-        "rev": "94806d03c36fc646552cb19fd58c27c99216bb4e",
+        "rev": "342f715804a7574fa5817488065113c6343e3a69",
         "type": "github"
       },
       "original": {
         "owner": "peer-observer",
+        "ref": "2026-04-signet-bip54",
         "repo": "infra-library",
         "type": "github"
       }
