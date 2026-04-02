@@ -139,6 +139,9 @@ in
         fork-observer = {
           networkName = "signet";
           minForkHeight = 290000;
+          poolIdentification = {
+            network = "Signet";
+          };
         };
 
         extraConfig = { };
