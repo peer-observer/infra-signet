@@ -145,7 +145,42 @@ in
         };
 
         extraConfig = { };
-        extraModules = [ ];
+        extraModules = [
+          # HACK:
+          # Override fork-observer node names (the upstream library uses the
+          # infra.nix attrset keys as names, but we want custom display names).
+          ({ config, lib, ... }:
+            let
+              CONSTANTS = import "${peer-observer-infra-library}/modules/constants.nix";
+              nameOverrides = {
+                node01 = "Bitcoin Core v31.0";
+                node02 = "Inquisition v29.2";
+              };
+              mkNode = name: host: {
+                inherit (host) id description;
+                name = nameOverrides.${name} or name;
+                rpcHost = host.wireguard.ip;
+                rpcPort = CONSTANTS.NODE_TO_WEBSERVER_PORT;
+                rpcUser = "forkobserver";
+                rpcPassword = CONSTANTS.FORK_OBSERVER_RPC_PASSWORD;
+              };
+            in
+            {
+              services.fork-observer.networks = lib.mkForce [
+                {
+                  id = 1;
+                  name = config.peer-observer.web.fork-observer.networkName;
+                  description = config.peer-observer.web.fork-observer.description;
+                  minForkHeight = config.peer-observer.web.fork-observer.minForkHeight;
+                  poolIdentification = {
+                    enable = config.peer-observer.web.fork-observer.poolIdentification.enable;
+                    network = config.peer-observer.web.fork-observer.poolIdentification.network;
+                  };
+                  nodes = lib.attrValues (lib.mapAttrs mkNode config.infra.nodes);
+                }
+              ];
+            })
+        ];
       };
   };
 }
