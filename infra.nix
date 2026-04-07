@@ -146,6 +146,24 @@ in
 
         extraConfig = { };
         extraModules = [
+          # Allow CORS from localhost for fork-observer API endpoints.
+          ({ config, lib, ... }: {
+            services.nginx.virtualHosts."FULL_ACCESS".locations."/forks/".extraConfig = lib.mkForce ''
+              proxy_set_header Host $host;
+              rewrite /forks/(.*) /$1  break;
+              add_header 'Access-Control-Allow-Origin' $cors_origin always;
+              add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS' always;
+              add_header 'Access-Control-Allow-Headers' 'Content-Type' always;
+            '';
+            services.nginx.appendHttpConfig = ''
+              map $http_origin $cors_origin {
+                default "";
+                "https://${config.peer-observer.web.domain}" "$http_origin";
+                "~^https?://localhost(:[0-9]+)?$" "$http_origin";
+                "~^https?://127\.0\.0\.1(:[0-9]+)?$" "$http_origin";
+              }
+            '';
+          })
           # HACK:
           # Override fork-observer node names (the upstream library uses the
           # infra.nix attrset keys as names, but we want custom display names).
